@@ -15,10 +15,10 @@ namespace DotNet.Testcontainers.Builders
   /// <summary>
   /// A fluent Testcontainer builder.
   /// </summary>
-  /// <typeparam name="TDockerContainer">Type of <see cref="ITestcontainersContainer" />.</typeparam>
+  /// <typeparam name="TContainerEntity">Type of <see cref="ITestcontainersContainer" />.</typeparam>
   [PublicAPI]
-  public interface ITestcontainersBuilder<out TDockerContainer> : IAbstractBuilder<ITestcontainersBuilder<TDockerContainer>>
-    where TDockerContainer : ITestcontainersContainer
+  public interface ITestcontainersBuilder<out TContainerEntity> : IAbstractBuilder<ITestcontainersBuilder<TContainerEntity>>
+    where TContainerEntity : ITestcontainersContainer
   {
     /// <summary>
     /// Sets the module configuration of the Testcontainer to override custom properties.
@@ -26,7 +26,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="moduleConfiguration">Module configuration action.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> ConfigureContainer(Action<TDockerContainer> moduleConfiguration);
+    ITestcontainersBuilder<TContainerEntity> ConfigureContainer(Action<TContainerEntity> moduleConfiguration);
 
     /// <summary>
     /// Sets the Docker image, which is used to create the Testcontainer instances.
@@ -34,7 +34,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="image">The Docker image.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithImage(string image);
+    ITestcontainersBuilder<TContainerEntity> WithImage(string image);
 
     /// <summary>
     /// Sets the Docker image, which is used to create the Testcontainer instances.
@@ -42,7 +42,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="image">The Docker image.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithImage(IDockerImage image);
+    ITestcontainersBuilder<TContainerEntity> WithImage(IDockerImage image);
 
     /// <summary>
     /// Sets the name of the Testcontainer.
@@ -50,7 +50,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="name">Testcontainers name.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithName(string name);
+    ITestcontainersBuilder<TContainerEntity> WithName(string name);
 
     /// <summary>
     /// Sets the hostname of the Testcontainer.
@@ -58,7 +58,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="hostname">Testcontainers hostname.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithHostname(string hostname);
+    ITestcontainersBuilder<TContainerEntity> WithHostname(string hostname);
 
     /// <summary>
     /// Overrides the working directory of the Testcontainer for the instruction sets.
@@ -66,7 +66,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="workingDirectory">Working directory.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithWorkingDirectory(string workingDirectory);
+    ITestcontainersBuilder<TContainerEntity> WithWorkingDirectory(string workingDirectory);
 
     /// <summary>
     /// Overrides the entrypoint of the Testcontainer to configure an executable.
@@ -74,7 +74,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="entrypoint">Entrypoint executable.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithEntrypoint(params string[] entrypoint);
+    ITestcontainersBuilder<TContainerEntity> WithEntrypoint(params string[] entrypoint);
 
     /// <summary>
     /// Overrides the command of the Testcontainer to provide defaults for an executing.
@@ -82,7 +82,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="command">List of commands, "executable", "param1", "param2" or "param1", "param2".</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithCommand(params string[] command);
+    ITestcontainersBuilder<TContainerEntity> WithCommand(params string[] command);
 
     /// <summary>
     /// Exports the environment variable in the Testcontainer.
@@ -91,7 +91,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="value">Environment variable value.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithEnvironment(string name, string value);
+    ITestcontainersBuilder<TContainerEntity> WithEnvironment(string name, string value);
 
     /// <summary>
     /// Exports the environment variables in the Testcontainer.
@@ -99,7 +99,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="environments">Dictionary of environment variables.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithEnvironment(IReadOnlyDictionary<string, string> environments);
+    ITestcontainersBuilder<TContainerEntity> WithEnvironment(IReadOnlyDictionary<string, string> environments);
 
     /// <summary>
     /// Sets the port of the Testcontainer to expose, without publishing the port to the host system’s interfaces.
@@ -107,7 +107,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="port">Port to expose.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithExposedPort(int port);
+    ITestcontainersBuilder<TContainerEntity> WithExposedPort(int port);
 
     /// <summary>
     /// Exposes the port of the Testcontainer, without publishing the port to the host system’s interfaces.
@@ -116,7 +116,7 @@ namespace DotNet.Testcontainers.Builders
     /// <remarks>Append /tcp|udp|sctp to change the protocol e.g. "53/udp". Default: tcp.</remarks>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithExposedPort(string port);
+    ITestcontainersBuilder<TContainerEntity> WithExposedPort(string port);
 
     /// <summary>
     /// Binds the port of the Testcontainer to the same port of the host machine.
@@ -125,7 +125,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="assignRandomHostPort">True, Testcontainer will bind the port to a random host port, otherwise the host and container ports are the same.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithPortBinding(int port, bool assignRandomHostPort = false);
+    ITestcontainersBuilder<TContainerEntity> WithPortBinding(int port, bool assignRandomHostPort = false);
 
     /// <summary>
     /// Binds the port of the Testcontainer to the specified port of the host machine.
@@ -134,7 +134,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="containerPort">Port of the Testcontainer.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithPortBinding(int hostPort, int containerPort);
+    ITestcontainersBuilder<TContainerEntity> WithPortBinding(int hostPort, int containerPort);
 
     /// <summary>
     /// Binds the port of the Testcontainer to the same port of the host machine.
@@ -144,7 +144,7 @@ namespace DotNet.Testcontainers.Builders
     /// <remarks>Append /tcp|udp|sctp to change the protocol e.g. "53/udp". Default: tcp.</remarks>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithPortBinding(string port, bool assignRandomHostPort = false);
+    ITestcontainersBuilder<TContainerEntity> WithPortBinding(string port, bool assignRandomHostPort = false);
 
     /// <summary>
     /// Binds the port of the Testcontainer to the specified port of the host machine.
@@ -154,7 +154,7 @@ namespace DotNet.Testcontainers.Builders
     /// <remarks>Append /tcp|udp|sctp to <paramref name="containerPort" /> to change the protocol e.g. "53/udp". Default: tcp.</remarks>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithPortBinding(string hostPort, string containerPort);
+    ITestcontainersBuilder<TContainerEntity> WithPortBinding(string hostPort, string containerPort);
 
     /// <summary>
     /// Binds and mounts the specified host machine volume into the Testcontainer.
@@ -164,7 +164,7 @@ namespace DotNet.Testcontainers.Builders
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
     [Obsolete("Use WithBindMount(string source, string destination) instead.")]
-    ITestcontainersBuilder<TDockerContainer> WithMount(string source, string destination);
+    ITestcontainersBuilder<TContainerEntity> WithMount(string source, string destination);
 
     /// <summary>
     /// Binds and mounts the specified host machine volume into the Testcontainer.
@@ -175,7 +175,7 @@ namespace DotNet.Testcontainers.Builders
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
     [Obsolete("Use WithBindMount(string source, string destination, AccessMode accessMode) instead.")]
-    ITestcontainersBuilder<TDockerContainer> WithMount(string source, string destination, AccessMode accessMode);
+    ITestcontainersBuilder<TContainerEntity> WithMount(string source, string destination, AccessMode accessMode);
 
     /// <summary>
     /// Binds and mounts the specified host machine volume into the Testcontainer.
@@ -184,7 +184,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="destination">An absolute path as destination in the container.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithBindMount(string source, string destination);
+    ITestcontainersBuilder<TContainerEntity> WithBindMount(string source, string destination);
 
     /// <summary>
     /// Binds and mounts the specified host machine volume into the Testcontainer.
@@ -194,7 +194,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="accessMode">Volume access mode.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithBindMount(string source, string destination, AccessMode accessMode);
+    ITestcontainersBuilder<TContainerEntity> WithBindMount(string source, string destination, AccessMode accessMode);
 
     /// <summary>
     /// Mounts the specified managed volume into the Testcontainer.
@@ -203,26 +203,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="destination">An absolute path as destination in the container.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithVolumeMount(string source, string destination);
-
-    /// <summary>
-    /// Mounts the specified managed volume into the Testcontainer.
-    /// </summary>
-    /// <param name="source">Name of the managed volume.</param>
-    /// <param name="destination">An absolute path as destination in the container.</param>
-    /// <param name="accessMode">Volume access mode.</param>
-    /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
-    [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithVolumeMount(string source, string destination, AccessMode accessMode);
-
-    /// <summary>
-    /// Mounts the specified managed volume into the Testcontainer.
-    /// </summary>
-    /// <param name="source">Name of the managed volume.</param>
-    /// <param name="destination">An absolute path as destination in the container.</param>
-    /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
-    [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithVolumeMount(IDockerVolume source, string destination);
+    ITestcontainersBuilder<TContainerEntity> WithVolumeMount(string source, string destination);
 
     /// <summary>
     /// Mounts the specified managed volume into the Testcontainer.
@@ -232,7 +213,26 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="accessMode">Volume access mode.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithVolumeMount(IDockerVolume source, string destination, AccessMode accessMode);
+    ITestcontainersBuilder<TContainerEntity> WithVolumeMount(string source, string destination, AccessMode accessMode);
+
+    /// <summary>
+    /// Mounts the specified managed volume into the Testcontainer.
+    /// </summary>
+    /// <param name="source">Name of the managed volume.</param>
+    /// <param name="destination">An absolute path as destination in the container.</param>
+    /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
+    [PublicAPI]
+    ITestcontainersBuilder<TContainerEntity> WithVolumeMount(IDockerVolume source, string destination);
+
+    /// <summary>
+    /// Mounts the specified managed volume into the Testcontainer.
+    /// </summary>
+    /// <param name="source">Name of the managed volume.</param>
+    /// <param name="destination">An absolute path as destination in the container.</param>
+    /// <param name="accessMode">Volume access mode.</param>
+    /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
+    [PublicAPI]
+    ITestcontainersBuilder<TContainerEntity> WithVolumeMount(IDockerVolume source, string destination, AccessMode accessMode);
 
     /// <summary>
     /// Mounts the specified tmpfs (temporary file system) volume into the Testcontainer.
@@ -240,7 +240,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="destination">An absolute path as destination in the container.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithTmpfsMount(string destination);
+    ITestcontainersBuilder<TContainerEntity> WithTmpfsMount(string destination);
 
     /// <summary>
     /// Mounts the specified tmpfs (temporary file system) volume into the Testcontainer.
@@ -249,7 +249,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="accessMode">Volume access mode.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithTmpfsMount(string destination, AccessMode accessMode);
+    ITestcontainersBuilder<TContainerEntity> WithTmpfsMount(string destination, AccessMode accessMode);
 
     /// <summary>
     /// Connects to the specified network.
@@ -258,7 +258,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="name">Name of the network to connect to.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithNetwork(string id, string name);
+    ITestcontainersBuilder<TContainerEntity> WithNetwork(string id, string name);
 
     /// <summary>
     /// Connects to the specified network.
@@ -266,7 +266,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="dockerNetwork">Network to connect container to.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithNetwork(IDockerNetwork dockerNetwork);
+    ITestcontainersBuilder<TContainerEntity> WithNetwork(IDockerNetwork dockerNetwork);
 
     /// <summary>
     /// Assigns the specified network-scoped aliases to the container.
@@ -274,7 +274,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="networkAliases">Network-scoped aliases.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithNetworkAliases(params string[] networkAliases);
+    ITestcontainersBuilder<TContainerEntity> WithNetworkAliases(params string[] networkAliases);
 
     /// <summary>
     /// Assigns the specified network-scoped aliases to the container.
@@ -282,7 +282,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="networkAliases">Network-scoped aliases.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithNetworkAliases(IEnumerable<string> networkAliases);
+    ITestcontainersBuilder<TContainerEntity> WithNetworkAliases(IEnumerable<string> networkAliases);
 
     /// <summary>
     /// If true, the Docker daemon will remove the stopped Testcontainer automatically. Otherwise, the Testcontainer will be kept.
@@ -290,7 +290,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="autoRemove">True, the Docker daemon will remove the stopped Testcontainer automatically. Otherwise, the Testcontainer will be kept.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithAutoRemove(bool autoRemove);
+    ITestcontainersBuilder<TContainerEntity> WithAutoRemove(bool autoRemove);
 
     /// <summary>
     /// If true, the Testcontainer will get extended privileges. Otherwise, the Testcontainer will be unprivileged.
@@ -298,7 +298,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="privileged">The Testcontainer will get extended privileges. Otherwise, the Testcontainer will be unprivileged.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithPrivileged(bool privileged);
+    ITestcontainersBuilder<TContainerEntity> WithPrivileged(bool privileged);
 
     /// <summary>
     /// Sets the Docker registry authentication configuration to authenticate against private Docker registries.
@@ -309,7 +309,7 @@ namespace DotNet.Testcontainers.Builders
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
     [Obsolete("Use the local Docker credential store.")]
-    ITestcontainersBuilder<TDockerContainer> WithRegistryAuthentication(string registryEndpoint, string username, string password);
+    ITestcontainersBuilder<TContainerEntity> WithRegistryAuthentication(string registryEndpoint, string username, string password);
 
     /// <summary>
     /// Sets the output consumer to capture the Testcontainer stdout and stderr messages.
@@ -317,7 +317,7 @@ namespace DotNet.Testcontainers.Builders
     /// <param name="outputConsumer">Output consumer to capture stdout and stderr.</param>
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithOutputConsumer(IOutputConsumer outputConsumer);
+    ITestcontainersBuilder<TContainerEntity> WithOutputConsumer(IOutputConsumer outputConsumer);
 
     /// <summary>
     /// Sets the wait strategies to complete the Testcontainer asynchronous start task.
@@ -326,7 +326,7 @@ namespace DotNet.Testcontainers.Builders
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     /// <remarks>Multiple wait strategies are executed one after the other.</remarks>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithWaitStrategy(IWaitForContainerOS waitStrategy);
+    ITestcontainersBuilder<TContainerEntity> WithWaitStrategy(IWaitForContainerOS waitStrategy);
 
     /// <summary>
     /// Allows low level modifications of <see cref="CreateContainerParameters" /> after the builder configuration has been applied.
@@ -336,7 +336,7 @@ namespace DotNet.Testcontainers.Builders
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     /// <remarks>This exposes the underlying Docker.DotNet API, it might change. Scope is outside this project.</remarks>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithCreateContainerParametersModifier(Action<CreateContainerParameters> parameterModifier);
+    ITestcontainersBuilder<TContainerEntity> WithCreateContainerParametersModifier(Action<CreateContainerParameters> parameterModifier);
 
     /// <summary>
     /// Sets the startup callback to invoke after the Testcontainer start.
@@ -345,13 +345,13 @@ namespace DotNet.Testcontainers.Builders
     /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
     /// <remarks>Is invoked once after the Testcontainer is started and before the wait strategies are executed.</remarks>
     [PublicAPI]
-    ITestcontainersBuilder<TDockerContainer> WithStartupCallback(Func<IRunningDockerContainer, CancellationToken, Task> startupCallback);
+    ITestcontainersBuilder<TContainerEntity> WithStartupCallback(Func<IRunningDockerContainer, CancellationToken, Task> startupCallback);
 
     /// <summary>
     /// Builds the instance of <see cref="ITestcontainersContainer" /> with the given configuration.
     /// </summary>
     /// <returns>A configured instance of <see cref="ITestcontainersContainer" />.</returns>
     [PublicAPI]
-    TDockerContainer Build();
+    TContainerEntity Build();
   }
 }

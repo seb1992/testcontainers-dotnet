@@ -11,7 +11,6 @@
   /// <typeparam name="TBuilderEntity">The builder entity.</typeparam>
   /// <typeparam name="TConfigurationEntity">The configuration entity.</typeparam>
   public abstract class AbstractBuilder<TBuilderEntity, TConfigurationEntity>
-    where TBuilderEntity : IAbstractBuilder<TBuilderEntity>
     where TConfigurationEntity : IDockerResourceConfiguration
   {
     /// <summary>
