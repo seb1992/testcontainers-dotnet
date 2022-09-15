@@ -102,7 +102,7 @@ namespace DotNet.Testcontainers.Builders
     public TBuilderEntity WithEnvironment(string name, string value)
     {
       var environments = new Dictionary<string, string> { { name, value } };
-      return this.Clone(new TestcontainersConfiguration(environments: environments));
+      return this.WithEnvironment(environments);
     }
 
     /// <inheritdoc cref="ITestcontainersBuilder{TBuilderEntity, TContainerEntity}" />
