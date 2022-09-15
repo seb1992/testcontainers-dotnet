@@ -21,16 +21,19 @@ namespace DotNet.Testcontainers.Builders
     {
     }
 
+    /// <inheritdoc />
     public override ITestcontainersContainer Build()
     {
       throw new System.NotImplementedException();
     }
 
+    /// <inheritdoc />
     protected override TestcontainersBuilder Clone(IDockerResourceConfiguration dockerResourceConfiguration)
     {
       throw new System.NotImplementedException();
     }
 
+    /// <inheritdoc />
     protected override TestcontainersBuilder Clone(ITestcontainersConfiguration dockerResourceConfiguration)
     {
       throw new System.NotImplementedException();

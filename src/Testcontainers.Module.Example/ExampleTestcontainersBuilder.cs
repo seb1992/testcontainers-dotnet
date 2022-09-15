@@ -3,7 +3,7 @@ namespace Testcontainers.Module.Example
   using DotNet.Testcontainers.Builders;
   using DotNet.Testcontainers.Configurations;
 
-  public sealed class ExampleTestcontainersBuilder : TestcontainersBuilder<ExampleTestcontainersBuilder, IExampleTestcontainers, IExampleTestcontainersConfiguration>, ICloneable<ExampleTestcontainersBuilder, IExampleTestcontainersConfiguration>
+  public sealed class ExampleTestcontainersBuilder : TestcontainersBuilder<ExampleTestcontainersBuilder, IExampleTestcontainers, IExampleTestcontainersConfiguration>
   {
     public ExampleTestcontainersBuilder()
       : base(new ExampleTestcontainersConfiguration())
@@ -17,22 +17,17 @@ namespace Testcontainers.Module.Example
 
     public override IExampleTestcontainers Build()
     {
-      return new ExampleTestcontainers(this.DockerResourceConfiguration, TestcontainersSettings.Logger);
+      throw new System.NotImplementedException();
     }
 
-    public override ExampleTestcontainersBuilder Clone(IDockerResourceConfiguration dockerResourceConfiguration)
+    protected override ExampleTestcontainersBuilder Clone(IDockerResourceConfiguration dockerResourceConfiguration)
     {
-      return this.Clone(new TestcontainersConfiguration(dockerResourceConfiguration));
+      throw new System.NotImplementedException();
     }
 
-    public override ExampleTestcontainersBuilder Clone(ITestcontainersConfiguration dockerResourceConfiguration)
+    protected override ExampleTestcontainersBuilder Clone(IExampleTestcontainersConfiguration dockerResourceConfiguration)
     {
-      return this.Clone(new ExampleTestcontainersConfiguration(dockerResourceConfiguration));
-    }
-
-    public ExampleTestcontainersBuilder Clone(IExampleTestcontainersConfiguration dockerResourceConfiguration)
-    {
-      return new ExampleTestcontainersBuilder(new ExampleTestcontainersConfiguration(dockerResourceConfiguration, this.DockerResourceConfiguration));
+      throw new System.NotImplementedException();
     }
   }
 }
