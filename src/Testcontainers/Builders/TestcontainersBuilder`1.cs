@@ -6,10 +6,11 @@ namespace DotNet.Testcontainers.Builders
 
   /// <inheritdoc cref="TestcontainersBuilder{TBuilderEntity, TContainerEntity, TConfigurationEntity}" />
   [PublicAPI]
-  public sealed class TestcontainersBuilder : TestcontainersBuilder<TestcontainersBuilder, ITestcontainersContainer, ITestcontainersConfiguration>
+  public sealed class TestcontainersBuilder<TContainerEntity> : TestcontainersBuilder<TestcontainersBuilder<TContainerEntity>, TContainerEntity, ITestcontainersConfiguration>
+    where TContainerEntity : ITestcontainersContainer
   {
     /// <summary>
-    /// Initializes a new instance of the <see cref="TestcontainersBuilder" /> class.
+    /// Initializes a new instance of the <see cref="TestcontainersBuilder{TContainerEntity}" /> class.
     /// </summary>
     public TestcontainersBuilder()
       : this(new TestcontainersConfiguration())
@@ -22,21 +23,21 @@ namespace DotNet.Testcontainers.Builders
     }
 
     /// <inheritdoc cref="IAbstractBuilder{TBuilderEntity,TContainerEntity}" />
-    public override ITestcontainersContainer Build()
+    public override TContainerEntity Build()
     {
-      return new TestcontainersContainer(this.DockerResourceConfiguration, TestcontainersSettings.Logger);
+      throw new System.NotImplementedException();
     }
 
     /// <inheritdoc cref="ICloneable{TBuilderEntity, IDockerResourceConfiguration}" />
-    public override TestcontainersBuilder Clone(IDockerResourceConfiguration dockerResourceConfiguration)
+    public override TestcontainersBuilder<TContainerEntity> Clone(IDockerResourceConfiguration dockerResourceConfiguration)
     {
       return this.Clone(new TestcontainersConfiguration(dockerResourceConfiguration));
     }
 
     /// <inheritdoc cref="ICloneable{TBuilderEntity, ITestcontainersConfiguration}" />
-    public override TestcontainersBuilder Clone(ITestcontainersConfiguration dockerResourceConfiguration)
+    public override TestcontainersBuilder<TContainerEntity> Clone(ITestcontainersConfiguration dockerResourceConfiguration)
     {
-      return new TestcontainersBuilder(new TestcontainersConfiguration(dockerResourceConfiguration, this.DockerResourceConfiguration));
+      return new TestcontainersBuilder<TContainerEntity>(new TestcontainersConfiguration(dockerResourceConfiguration, this.DockerResourceConfiguration));
     }
   }
 }

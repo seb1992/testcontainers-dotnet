@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using DotNet.Testcontainers.Builders;
   using DotNet.Testcontainers.Containers;
 
   /// <inheritdoc cref="IDockerResourceConfiguration" />
@@ -13,6 +14,18 @@
     /// <param name="dockerResourceConfiguration">The Docker resource configuration.</param>
     public DockerResourceConfiguration(IDockerResourceConfiguration dockerResourceConfiguration)
       : this(dockerResourceConfiguration.DockerEndpointAuthConfig, dockerResourceConfiguration.Labels)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DockerResourceConfiguration" /> class.
+    /// </summary>
+    /// <param name="next">The next configuration.</param>
+    /// <param name="previous">The previous configuration.</param>
+    public DockerResourceConfiguration(IDockerResourceConfiguration next, IDockerResourceConfiguration previous)
+      : this(
+        BuildConfiguration.Combine(next.DockerEndpointAuthConfig, previous.DockerEndpointAuthConfig),
+        BuildConfiguration.Combine(next.Labels, previous.Labels))
     {
     }
 

@@ -3,22 +3,16 @@ namespace Testcontainers.Module.Example
   using DotNet.Testcontainers.Builders;
   using DotNet.Testcontainers.Configurations;
 
-  public class ExampleTestcontainersBuilder :
-    TestcontainersBuilder<ExampleTestcontainersBuilder, ExampleTestcontainersConfiguration, IExampleTestcontainers>
+  public sealed class ExampleTestcontainersBuilder : TestcontainersBuilder<ExampleTestcontainersBuilder, IExampleTestcontainers, IExampleTestcontainersConfiguration>, ICloneable<ExampleTestcontainersBuilder, IExampleTestcontainersConfiguration>
   {
     public ExampleTestcontainersBuilder()
       : base(new ExampleTestcontainersConfiguration())
     {
     }
 
-    public ExampleTestcontainersBuilder WithUsername(string username)
+    private ExampleTestcontainersBuilder(IExampleTestcontainersConfiguration dockerResourceConfiguration)
+      : base(dockerResourceConfiguration)
     {
-      return this.MergeNewConfiguration(new ExampleTestcontainersConfiguration(username: username));
-    }
-
-    public ExampleTestcontainersBuilder WithPassword(string password)
-    {
-      return this.MergeNewConfiguration(new ExampleTestcontainersConfiguration(password: password));
     }
 
     public override IExampleTestcontainers Build()
@@ -26,14 +20,19 @@ namespace Testcontainers.Module.Example
       return new ExampleTestcontainers(this.DockerResourceConfiguration, TestcontainersSettings.Logger);
     }
 
-    protected override ExampleTestcontainersBuilder MergeNewConfiguration(IDockerResourceConfiguration dockerResourceConfiguration)
+    public override ExampleTestcontainersBuilder Clone(IDockerResourceConfiguration dockerResourceConfiguration)
     {
-      return this.MergeNewConfiguration(new TestcontainersConfiguration(dockerResourceConfiguration));
+      return this.Clone(new TestcontainersConfiguration(dockerResourceConfiguration));
     }
 
-    protected override ExampleTestcontainersBuilder MergeNewConfiguration(ExampleTestcontainersConfiguration dockerResourceConfiguration)
+    public override ExampleTestcontainersBuilder Clone(ITestcontainersConfiguration dockerResourceConfiguration)
     {
-      return new ExampleTestcontainersBuilder(); // TODO: Merge configurations.
+      return this.Clone(new ExampleTestcontainersConfiguration(dockerResourceConfiguration));
+    }
+
+    public ExampleTestcontainersBuilder Clone(IExampleTestcontainersConfiguration dockerResourceConfiguration)
+    {
+      return new ExampleTestcontainersBuilder(new ExampleTestcontainersConfiguration(dockerResourceConfiguration, this.DockerResourceConfiguration));
     }
   }
 }

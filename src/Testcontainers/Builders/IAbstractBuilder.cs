@@ -9,8 +9,9 @@
   /// An abstract fluent Docker resource builder.
   /// </summary>
   /// <typeparam name="TBuilderEntity">The builder entity.</typeparam>
+  /// <typeparam name="TResourceEntity">The resource entity.</typeparam>
   [PublicAPI]
-  public interface IAbstractBuilder<out TBuilderEntity>
+  public interface IAbstractBuilder<out TBuilderEntity, out TResourceEntity>
   {
     /// <summary>
     /// Sets the Docker API endpoint.
@@ -61,5 +62,12 @@
     /// <remarks>The <see cref="ResourceReaper" /> will delete the Docker resource after the tests has been finished.</remarks>
     [PublicAPI]
     TBuilderEntity WithResourceReaperSessionId(Guid resourceReaperSessionId);
+
+    /// <summary>
+    /// Builds the instance of <see cref="TResourceEntity" /> with the given configuration.
+    /// </summary>
+    /// <returns>A configured instance of <see cref="TResourceEntity" />.</returns>
+    [PublicAPI]
+    TResourceEntity Build();
   }
 }

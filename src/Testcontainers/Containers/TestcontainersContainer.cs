@@ -16,7 +16,7 @@ namespace DotNet.Testcontainers.Containers
   using Microsoft.Extensions.Logging;
 
   /// <inheritdoc cref="ITestcontainersContainer" />
-  public class TestcontainersContainer : ITestcontainersContainer
+  internal class TestcontainersContainer : ITestcontainersContainer
   {
     private static readonly TestcontainersState[] ContainerHasBeenCreatedStates = { TestcontainersState.Created, TestcontainersState.Running, TestcontainersState.Exited };
 
@@ -36,7 +36,7 @@ namespace DotNet.Testcontainers.Containers
     /// </summary>
     /// <param name="configuration">The Testcontainers configuration.</param>
     /// <param name="logger">The logger.</param>
-    protected TestcontainersContainer(ITestcontainersConfiguration configuration, ILogger logger)
+    public TestcontainersContainer(ITestcontainersConfiguration configuration, ILogger logger)
     {
       this.client = new TestcontainersClient(configuration.SessionId, configuration.DockerEndpointAuthConfig, logger);
       this.configuration = configuration;

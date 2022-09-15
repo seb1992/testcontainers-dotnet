@@ -5,19 +5,66 @@ namespace DotNet.Testcontainers.Configurations
   using System.Threading;
   using System.Threading.Tasks;
   using Docker.DotNet.Models;
+  using DotNet.Testcontainers.Builders;
+  using DotNet.Testcontainers.Clients;
   using DotNet.Testcontainers.Containers;
   using DotNet.Testcontainers.Images;
   using DotNet.Testcontainers.Networks;
 
   /// <inheritdoc cref="ITestcontainersConfiguration" />
-  internal sealed class TestcontainersConfiguration : DockerResourceConfiguration, ITestcontainersConfiguration
+  internal class TestcontainersConfiguration : DockerResourceConfiguration, ITestcontainersConfiguration
   {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TestcontainersConfiguration" /> class.
+    /// </summary>
+    public TestcontainersConfiguration()
+      : this(
+        dockerEndpointAuthenticationConfiguration: TestcontainersSettings.OS.DockerEndpointAuthConfig,
+        dockerRegistryAuthenticationConfiguration: default(DockerRegistryAuthenticationConfiguration),
+        labels: DefaultLabels.Instance,
+        outputConsumer: Consume.DoNotConsumeStdoutAndStderr(),
+        waitStrategies: Wait.ForUnixContainer().Build(),
+        startupCallback: (_, ct) => Task.CompletedTask)
+    {
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="TestcontainersConfiguration" /> class.
     /// </summary>
     /// <param name="dockerResourceConfiguration">The Docker container configuration.</param>
     public TestcontainersConfiguration(IDockerResourceConfiguration dockerResourceConfiguration)
       : base(dockerResourceConfiguration)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TestcontainersConfiguration" /> class.
+    /// </summary>
+    /// <param name="next">The next configuration.</param>
+    /// <param name="previous">The previous configuration.</param>
+    public TestcontainersConfiguration(ITestcontainersConfiguration next, ITestcontainersConfiguration previous)
+      : this(
+        BuildConfiguration.Combine(next.DockerEndpointAuthConfig, previous.DockerEndpointAuthConfig),
+        BuildConfiguration.Combine(next.DockerRegistryAuthConfig, previous.DockerRegistryAuthConfig),
+        BuildConfiguration.Combine(next.Image, previous.Image),
+        BuildConfiguration.Combine(next.Name, previous.Name),
+        BuildConfiguration.Combine(next.Hostname, previous.Hostname),
+        BuildConfiguration.Combine(next.WorkingDirectory, previous.WorkingDirectory),
+        BuildConfiguration.Combine(next.Entrypoint, previous.Entrypoint),
+        BuildConfiguration.Combine(next.Command, previous.Command),
+        BuildConfiguration.Combine(next.Environments, previous.Environments),
+        BuildConfiguration.Combine(next.Labels, previous.Labels),
+        BuildConfiguration.Combine(next.ExposedPorts, previous.ExposedPorts),
+        BuildConfiguration.Combine(next.PortBindings, previous.PortBindings),
+        BuildConfiguration.Combine(next.Mounts, previous.Mounts),
+        BuildConfiguration.Combine(next.Networks, previous.Networks),
+        BuildConfiguration.Combine(next.NetworkAliases, previous.NetworkAliases),
+        BuildConfiguration.Combine(next.OutputConsumer, previous.OutputConsumer),
+        BuildConfiguration.Combine(next.WaitStrategies, previous.WaitStrategies),
+        BuildConfiguration.Combine(next.ParameterModifiers, previous.ParameterModifiers),
+        BuildConfiguration.Combine(next.StartupCallback, previous.StartupCallback),
+        (next.AutoRemove.HasValue && next.AutoRemove.Value) || (previous.AutoRemove.HasValue && previous.AutoRemove.Value),
+        (next.Privileged.HasValue && next.Privileged.Value) || (previous.Privileged.HasValue && previous.Privileged.Value))
     {
     }
 
