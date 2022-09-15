@@ -37,7 +37,7 @@ namespace DotNet.Testcontainers.Builders
   /// <typeparam name="TBuilderEntity">The builder entity.</typeparam>
   /// <typeparam name="TContainerEntity">The container entity.</typeparam>
   /// <typeparam name="TConfigurationEntity">The configuration entity.</typeparam>
-  public abstract class TestcontainersBuilder<TBuilderEntity, TContainerEntity, TConfigurationEntity> : AbstractBuilder<TBuilderEntity, TContainerEntity, TConfigurationEntity>, ITestcontainersBuilder<TBuilderEntity, TContainerEntity>, ICloneable<TBuilderEntity, ITestcontainersConfiguration>
+  public abstract class TestcontainersBuilder<TBuilderEntity, TContainerEntity, TConfigurationEntity> : AbstractBuilder<TBuilderEntity, TContainerEntity, TConfigurationEntity>, ITestcontainersBuilder<TBuilderEntity, TContainerEntity>
     where TContainerEntity : ITestcontainersContainer
     where TConfigurationEntity : ITestcontainersConfiguration
   {
@@ -280,9 +280,6 @@ namespace DotNet.Testcontainers.Builders
     {
       return this.Clone(new TestcontainersConfiguration(startupCallback: startupCallback));
     }
-
-    /// <inheritdoc cref="ICloneable{TBuilderEntity, ITestcontainersConfiguration}" />
-    public abstract TBuilderEntity Clone(ITestcontainersConfiguration dockerResourceConfiguration);
 
     private static IDockerImage PrependHubImageNamePrefix(IDockerImage image)
     {

@@ -64,9 +64,9 @@
     TBuilderEntity WithResourceReaperSessionId(Guid resourceReaperSessionId);
 
     /// <summary>
-    /// Builds the instance of <see cref="TResourceEntity" /> with the given configuration.
+    /// Builds the instance of <typeparamref name="TResourceEntity" /> with the given configuration.
     /// </summary>
-    /// <returns>A configured instance of <see cref="TResourceEntity" />.</returns>
+    /// <returns>A configured instance of <typeparamref name="TResourceEntity" />.</returns>
     [PublicAPI]
     TResourceEntity Build();
   }

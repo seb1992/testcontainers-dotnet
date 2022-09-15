@@ -152,7 +152,7 @@
     /// <param name="hostPort">Port of the host machine.</param>
     /// <param name="containerPort">Port of the Testcontainer.</param>
     /// <remarks>Append /tcp|udp|sctp to <paramref name="containerPort" /> to change the protocol e.g. "53/udp". Default: tcp.</remarks>
-    /// <returns>A configured instance of <see cref="ITestcontainersBuilder{TDockerContainer}" />.</returns>
+    /// <returns>A configured instance of <typeparamref name="TBuilderEntity" />.</returns>
     [PublicAPI]
     TBuilderEntity WithPortBinding(string hostPort, string containerPort);
 

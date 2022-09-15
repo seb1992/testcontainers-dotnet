@@ -22,22 +22,20 @@ namespace DotNet.Testcontainers.Builders
     {
     }
 
-    /// <inheritdoc cref="IAbstractBuilder{TBuilderEntity,TContainerEntity}" />
+    /// <inheritdoc cref="IAbstractBuilder{TBuilderEntity, TContainerEntity}" />
     public override TContainerEntity Build()
     {
       throw new System.NotImplementedException();
     }
 
-    /// <inheritdoc cref="ICloneable{TBuilderEntity, IDockerResourceConfiguration}" />
-    public override TestcontainersBuilder<TContainerEntity> Clone(IDockerResourceConfiguration dockerResourceConfiguration)
+    protected override TestcontainersBuilder<TContainerEntity> Clone(IDockerResourceConfiguration dockerResourceConfiguration)
     {
-      return this.Clone(new TestcontainersConfiguration(dockerResourceConfiguration));
+      throw new System.NotImplementedException();
     }
 
-    /// <inheritdoc cref="ICloneable{TBuilderEntity, ITestcontainersConfiguration}" />
-    public override TestcontainersBuilder<TContainerEntity> Clone(ITestcontainersConfiguration dockerResourceConfiguration)
+    protected override TestcontainersBuilder<TContainerEntity> Clone(ITestcontainersConfiguration dockerResourceConfiguration)
     {
-      return new TestcontainersBuilder<TContainerEntity>(new TestcontainersConfiguration(dockerResourceConfiguration, this.DockerResourceConfiguration));
+      throw new System.NotImplementedException();
     }
   }
 }

@@ -4,6 +4,7 @@ namespace DotNet.Testcontainers.Builders
   using System.Collections.Generic;
   using DotNet.Testcontainers.Configurations;
   using DotNet.Testcontainers.Containers;
+  using JetBrains.Annotations;
 
   /// <summary>
   /// An abstract fluent Docker resource builder.
@@ -11,7 +12,7 @@ namespace DotNet.Testcontainers.Builders
   /// <typeparam name="TBuilderEntity">The builder entity.</typeparam>
   /// <typeparam name="TResourceEntity">The resource entity.</typeparam>
   /// <typeparam name="TConfigurationEntity">The configuration entity.</typeparam>
-  public abstract class AbstractBuilder<TBuilderEntity, TResourceEntity, TConfigurationEntity> : IAbstractBuilder<TBuilderEntity, TResourceEntity>, ICloneable<TBuilderEntity, IDockerResourceConfiguration>
+  public abstract class AbstractBuilder<TBuilderEntity, TResourceEntity, TConfigurationEntity> : IAbstractBuilder<TBuilderEntity, TResourceEntity>
     where TConfigurationEntity : IDockerResourceConfiguration
   {
     /// <summary>
@@ -68,7 +69,20 @@ namespace DotNet.Testcontainers.Builders
     /// <inheritdoc cref="IAbstractBuilder{TBuilderEntity, TContainerEntity}" />
     public abstract TResourceEntity Build();
 
-    /// <inheritdoc cref="ICloneable{TBuilderEntity, IDockerResourceConfiguration}" />
-    public abstract TBuilderEntity Clone(IDockerResourceConfiguration dockerResourceConfiguration);
+    /// <summary>
+    /// Clones the Docker resource builder configuration.
+    /// </summary>
+    /// <param name="dockerResourceConfiguration">The Docker resource configuration.</param>
+    /// <returns>A configured instance of <typeparamref name="TBuilderEntity" />.</returns>
+    [PublicAPI]
+    protected abstract TBuilderEntity Clone(IDockerResourceConfiguration dockerResourceConfiguration);
+
+    /// <summary>
+    /// Clones the Docker resource builder configuration.
+    /// </summary>
+    /// <param name="dockerResourceConfiguration">The Docker resource configuration.</param>
+    /// <returns>A configured instance of <typeparamref name="TBuilderEntity" />.</returns>
+    [PublicAPI]
+    protected abstract TBuilderEntity Clone(TConfigurationEntity dockerResourceConfiguration);
   }
 }
